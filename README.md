@@ -61,22 +61,19 @@
 
 ## 🚀 Deployment
 
-### Hybrid Strategy (Vercel + GitHub Pages)
+The app is optimized for deployment on **Vercel** (creators of Next.js).
 
-Since GitHub Pages is static and cannot host the API routes securely, we use a hybrid approach:
+1.  Push your code to a GitHub repository.
+2.  Import the project into [Vercel](https://vercel.com/new).
+3.  Add the required Environment Variables in the Vercel Project Settings:
+    - `GITHUB_TOKEN`
+    - `OPENAI_API_KEY`
+4.  Click **Deploy**.
 
-1.  **Backend (Vercel)**:
-
-    - Deploy this repo to Vercel.
-    - Add `GITHUB_TOKEN` and `OPENAI_API_KEY` to Vercel Project Settings.
-    - This handles the `/api/analyze` route.
-
-2.  **Frontend (GitHub Pages)**:
-    - The project includes a GitHub Action (`.github/workflows/deploy.yml`) that builds the static frontend.
-    - Go to your Repo Settings -> Secrets -> Actions -> Add `NEXT_PUBLIC_API_URL`.
-    - Set the value to your Vercel URL (e.g., `https://your-project.vercel.app`).
-    - Push to `main`, and the action will deploy the frontend to Pages.
+Vercel will automatically build the app and configure the API routes as serverless functions.
 
 ## 📄 License
 
-MIT © [k1lgor]
+Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more information.
+
+&copy; [k1lgor](https://github.com/k1lgor)
