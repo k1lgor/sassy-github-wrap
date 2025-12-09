@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 export default function FancyLoading() {
   return (
-    <div className="flex flex-col items-center justify-center space-y-8 p-12 glass-panel rounded-3xl min-w-[300px]">
+    <div className="flex flex-col items-center justify-center space-y-8 p-8 md:p-12 glass-panel rounded-3xl w-full max-w-[300px] md:max-w-md mx-4">
       <div className="relative w-32 h-32">
         {/* Outer Ring */}
         <motion.div

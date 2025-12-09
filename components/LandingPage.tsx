@@ -38,7 +38,7 @@ export default function LandingPage({ onAnalyze }: LandingPageProps) {
             <span>Powered by GPT-4o & Sassy Attitude</span>
           </motion.div>
 
-          <h1 className="text-6xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gray-500 text-glow">
+          <h1 className="text-5xl md:text-8xl font-black tracking-tighter text-transparent bg-clip-text bg-gradient-to-br from-white via-white to-gray-500 text-glow leading-[1.1]">
             GITHUB <br />
             <span className="text-neon-purple text-glow-purple">WRAP</span>
           </h1>
