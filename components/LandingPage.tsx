@@ -54,23 +54,23 @@ export default function LandingPage({ onAnalyze }: LandingPageProps) {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.4 }}
           onSubmit={handleSubmit}
-          className="relative max-w-md mx-auto group"
+          className="relative w-full max-w-md mx-auto group px-4 md:px-0" // Ensure container constraints
         >
-          <div className="absolute -inset-1 bg-gradient-to-r from-neon-cyan to-neon-purple rounded-xl opacity-50 group-hover:opacity-100 blur transition duration-500" />
+          <div className="absolute top-0 left-4 right-4 md:left-0 md:right-0 bottom-0 bg-gradient-to-r from-neon-cyan to-neon-purple rounded-xl opacity-50 group-hover:opacity-100 blur transition duration-500" />
           <div className="relative glass-panel rounded-xl p-2 flex items-center">
-            <Github className="w-6 h-6 text-gray-400 ml-3 mr-2" />
+            <Github className="w-5 h-5 md:w-6 md:h-6 text-gray-400 ml-2 md:ml-3 mr-2" />
             <input
               type="text"
               placeholder="github_username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="flex-1 bg-transparent border-none outline-none text-white placeholder-gray-500 h-12 text-lg"
+              className="flex-1 bg-transparent border-none outline-none text-white placeholder-gray-500 h-10 md:h-12 text-base md:text-lg min-w-0"
               autoFocus
             />
             <button
               type="submit"
               disabled={!username}
-              className="px-6 h-12 rounded-lg bg-gradient-to-r from-neon-purple to-neon-pink text-white font-bold tracking-wide hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+              className="px-4 md:px-6 h-10 md:h-12 rounded-lg bg-gradient-to-r from-neon-purple to-neon-pink text-white font-bold tracking-wide hover:opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 text-sm md:text-base shrink-0"
             >
               Analyze <ArrowRight className="w-4 h-4" />
             </button>
