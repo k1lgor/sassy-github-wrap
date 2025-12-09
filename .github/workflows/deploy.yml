@@ -30,7 +30,15 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      # CRITICAL: We remove the API folder because GitHub Pages is static.
+      # The API will be hosted on Vercel.
+      - name: Strip API Routes (Frontend Only Build)
+        run: rm -rf app/api
+
       - name: Build
+        env:
+          NEXT_PUBLIC_API_URL: ${{ secrets.NEXT_PUBLIC_API_URL }}
+          IS_STATIC_EXPORT: true
         run: npm run build
 
       - name: Upload artifact
