@@ -19,9 +19,19 @@ export async function POST(request: Request) {
   try {
     const { username } = await request.json();
 
-    if (!username) {
+    if (!username || typeof username !== "string") {
       return NextResponse.json(
         { error: "Username is required, you void-brained developer." },
+        { status: 400, headers: corsHeaders() }
+      );
+    }
+
+    // Basic sanitization: alphanumeric and hyphens only (GitHub username rules)
+    const sanitizedUsername = username.replace(/[^a-zA-Z0-9-]/g, "");
+
+    if (!sanitizedUsername) {
+      return NextResponse.json(
+        { error: "Invalid username format. Nice try, hacker." },
         { status: 400, headers: corsHeaders() }
       );
     }
