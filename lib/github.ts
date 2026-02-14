@@ -5,7 +5,7 @@ if (!process.env.GITHUB_TOKEN) {
 }
 
 export const octokit = new Octokit({
-  auth: process.env.GITHUB_TOKEN,
+  auth: process.env.GITHUB_TOKEN || undefined,
 });
 
 export interface GitHubStats {
@@ -118,8 +118,8 @@ export async function getGitHubStats(username: string): Promise<GitHubStats> {
   const recent_activity = events
     .filter((e) =>
       ["PushEvent", "PullRequestEvent", "IssuesEvent", "CreateEvent"].includes(
-        e.type || ""
-      )
+        e.type || "",
+      ),
     )
     .slice(0, 5)
     .map((e) => {
@@ -151,7 +151,7 @@ export async function getGitHubStats(username: string): Promise<GitHubStats> {
           .sort(
             (a, b) =>
               commit_hours.filter((v) => v === a).length -
-              commit_hours.filter((v) => v === b).length
+              commit_hours.filter((v) => v === b).length,
           )
           .pop() || 12,
     },
