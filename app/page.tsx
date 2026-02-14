@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 
 export default function Home() {
   const [status, setStatus] = useState<"idle" | "loading" | "result" | "error">(
-    "idle"
+    "idle",
   );
   const [username, setUsername] = useState("");
   const [data, setData] = useState<any>(null);
@@ -20,8 +20,8 @@ export default function Home() {
     setErrorMsg("");
 
     try {
-      // Use env var for API URL (Vercel) or default to relative (Local)
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+      const rawBaseUrl = process.env.NEXT_PUBLIC_API_URL || "";
+      const baseUrl = rawBaseUrl.replace(/\/$/, "");
       const res = await fetch(`${baseUrl}/api/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -44,20 +44,13 @@ export default function Home() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center relative overflow-x-hidden p-4">
-      {/* Background Elements */}
-      <div className="fixed inset-0 pointer-events-none -z-10">
-        <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-slate-900 via-[#05050a] to-black" />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-neon-purple/20 rounded-full blur-[100px] animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-neon-cyan/10 rounded-full blur-[100px] animate-pulse-slow" />
-      </div>
-
+    <main className="min-h-screen flex flex-col items-center justify-center relative overflow-x-hidden aurora-bg">
       <AnimatePresence mode="wait">
         {status === "idle" && (
           <motion.div
             key="landing"
-            exit={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
-            transition={{ duration: 0.5 }}
+            exit={{ opacity: 0, scale: 0.9, filter: "blur(20px)" }}
+            transition={{ duration: 0.8, ease: "easeInOut" }}
             className="w-full"
           >
             <LandingPage onAnalyze={handleAnalyze} />
@@ -67,10 +60,10 @@ export default function Home() {
         {status === "loading" && (
           <motion.div
             key="loading"
-            initial={{ opacity: 0, scale: 0.5, filter: "blur(10px)" }}
+            initial={{ opacity: 0, scale: 0.8, filter: "blur(20px)" }}
             animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
-            transition={{ duration: 0.5 }}
+            exit={{ opacity: 0, y: -40, filter: "blur(20px)" }}
+            transition={{ duration: 0.6 }}
           >
             <FancyLoading />
           </motion.div>
@@ -79,8 +72,9 @@ export default function Home() {
         {status === "result" && data && (
           <motion.div
             key="result"
-            initial={{ opacity: 0, y: 50, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            initial={{ opacity: 0, scale: 1.1, filter: "blur(20px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            transition={{ duration: 0.8 }}
             className="w-full"
           >
             <WrapCard data={data} onReset={() => setStatus("idle")} />
@@ -90,19 +84,22 @@ export default function Home() {
         {status === "error" && (
           <motion.div
             key="error"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="glass-panel p-8 rounded-2xl text-center max-w-md"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="glass-panel p-12 rounded-[2.5rem] text-center max-w-lg border-red-500/20 shadow-[0_0_50px_rgba(239,68,68,0.1)] relative overflow-hidden"
           >
-            <h2 className="text-2xl text-red-500 font-bold mb-4">
-              Error 404: Skill Not Found
+            <div className="absolute inset-0 bg-red-500/5 blur-3xl" />
+            <h2 className="text-4xl text-red-500 font-black mb-6 tracking-tighter italic">
+              ERROR 404: SKILL NOT FOUND
             </h2>
-            <p className="text-gray-300 mb-6">{errorMsg}</p>
+            <p className="text-gray-300 mb-8 text-xl font-light italic">
+              "{errorMsg}"
+            </p>
             <button
               onClick={() => setStatus("idle")}
-              className="px-6 py-2 bg-white/10 rounded-full hover:bg-white/20 transition"
+              className="btn-premium px-10 py-3 rounded-xl font-black text-white tracking-widest"
             >
-              Try Again
+              TRY AGAIN
             </button>
           </motion.div>
         )}
