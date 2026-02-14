@@ -1,13 +1,41 @@
 @import "tailwindcss";
 
 @theme {
-  --color-glass-border: rgba(255, 255, 255, 0.1);
-  --color-glass-surface: rgba(255, 255, 255, 0.03);
+  --color-glass-border: rgba(255, 255, 255, 0.08);
+  --color-glass-surface: rgba(255, 255, 255, 0.02);
   --color-neon-cyan: #00f3ff;
   --color-neon-pink: #ff00ff;
   --color-neon-purple: #bc13fe;
 
-  --animate-pulse-slow: pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --color-deep-space: #05050a;
+  --color-nebula-purple: rgba(188, 19, 254, 0.15);
+  --color-nebula-cyan: rgba(0, 243, 255, 0.1);
+
+  --animate-pulse-slow: pulse 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-aurora: aurora 20s linear infinite;
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  @keyframes aurora {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
+  }
 }
 
 :root {
@@ -20,7 +48,8 @@ body {
   color: var(--foreground);
   font-family: var(--font-outfit), sans-serif;
   overflow-x: hidden;
-  background-image: radial-gradient(
+  background-image:
+    radial-gradient(
       circle at 50% 0%,
       rgba(188, 19, 254, 0.15) 0%,
       transparent 50%
@@ -38,12 +67,39 @@ body {
   }
 
   .text-glow {
-    text-shadow: 0 0 10px rgba(0, 243, 255, 0.5),
-      0 0 20px rgba(0, 243, 255, 0.3);
+    text-shadow:
+      0 0 15px rgba(0, 243, 255, 0.6),
+      0 0 30px rgba(0, 243, 255, 0.3),
+      0 0 45px rgba(0, 243, 255, 0.1);
   }
 
   .text-glow-purple {
-    text-shadow: 0 0 10px rgba(188, 19, 254, 0.5),
-      0 0 20px rgba(188, 19, 254, 0.3);
+    text-shadow:
+      0 0 15px rgba(188, 19, 254, 0.6),
+      0 0 30px rgba(188, 19, 254, 0.3),
+      0 0 45px rgba(188, 19, 254, 0.1);
+  }
+
+  .btn-premium {
+    @apply relative overflow-hidden transition-all duration-300 active:scale-95;
+    background: linear-gradient(
+      135deg,
+      var(--color-neon-purple),
+      var(--color-neon-pink)
+    );
+    box-shadow: 0 0 20px rgba(188, 19, 254, 0.4);
+  }
+
+  .btn-premium:hover {
+    box-shadow:
+      0 0 30px rgba(188, 19, 254, 0.6),
+      0 0 60px rgba(255, 0, 255, 0.3);
+    @apply opacity-90 scale-105;
+  }
+
+  .aurora-bg {
+    background: linear-gradient(-45deg, #05050a, #0a0a1f, #05050a, #1a0a2e);
+    background-size: 400% 400%;
+    animation: aurora 15s ease infinite;
   }
 }
