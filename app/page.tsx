@@ -20,8 +20,8 @@ export default function Home() {
     setErrorMsg("");
 
     try {
-      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
-      const res = await fetch(`${baseUrl}/api/analyze`, {
+      // Use relative path for internal API calls - most reliable on Vercel/Local
+      const res = await fetch("/api/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username: user }),
