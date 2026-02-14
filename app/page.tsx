@@ -20,8 +20,7 @@ export default function Home() {
     setErrorMsg("");
 
     try {
-      const rawBaseUrl = process.env.NEXT_PUBLIC_API_URL || "";
-      const baseUrl = rawBaseUrl.replace(/\/$/, "");
+      const baseUrl = process.env.NEXT_PUBLIC_API_URL || "";
       const res = await fetch(`${baseUrl}/api/analyze`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
